@@ -7,8 +7,6 @@ data = urlopen(address)
 decoded_response = data.read().decode()
 final_data = json.loads(decoded_response)
 songs = final_data['response'][1:]
-# print (final_data)
-print (songs)
 for song in songs:
     song_artist = song['artist']
     song_title = song['title']
