@@ -1,5 +1,5 @@
 # import the Flask class from the flask module
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, request
 from params import my_id, token
 from urllib.request import urlopen
 import json
@@ -11,9 +11,23 @@ app = Flask(__name__)
 # use decorators to link the function to a url
 @app.route('/')
 def home():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin':
+            error = "invalid name"
+        else:
+            return redirect(url_for('https://oauth.vk.com/authorize?client_id=5458340&display=page&redirect_uri=localhost:5000/downloadmusic&scope=8&response_type=token&v=5.57&state=123456'))
+    return render_template('home.html', error=error)
+
+
+@app.route('/downloadmusic')
+def downloadmusic():
     lst = download(my_id, token)
-    print(lst[0])
-    return render_template('downloadmusic.html', x="song_url_all", y="filename")
+    songstring = lst[0]
+    songstring = str(songstring)
+    newss = songstring.split("###", 2)
+    print(newss[1])
+    return render_template('downloadmusic.html', x=newss[1], y=newss[0])
 
 
 def download(my_id, token):

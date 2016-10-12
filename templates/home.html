@@ -6,10 +6,9 @@
   </head>
   <body>
     <div class="container">
-      <h1>Push the button</h1>
+      <h1>Please login</h1>
       <br>
-            <a href={{x}} target="_blank" download={{y}}><input class="btn btn-default" type="submit" value="Get"></a>
-            <br>
+      <a href= "https://oauth.vk.com/authorize?client_id=5458340&display=page&redirect_uri=localhost:5000/downloadmusic&scope=8&response_type=token&v=5.57&state=123456" target="_blank" ><input class="btn btn-default" type="submit" value="Get"></a>
       {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}
       {% endif %}
